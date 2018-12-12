@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/wybormatt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="Materiał, który chcesz udostępnić"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/tekstb"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="75dp"
+        android:text="Tekst" />
+
+    <Button
+        android:id="@+id/obrazb"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:text="Obrazek" />
+
+</RelativeLayout>

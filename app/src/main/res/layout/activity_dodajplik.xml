@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/wybranyt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/wybierzt"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="127dp"
+        android:text="Wybrany plik:"
+        android:textSize="28sp" />
+
+    <TextView
+        android:id="@+id/dodajt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Dodaj plik"
+        android:textSize="35dp" />
+
+    <Button
+        android:id="@+id/przegladajb"
+        android:layout_width="135dp"
+        android:layout_height="88dp"
+        android:layout_alignBottom="@+id/wybierzt"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="32dp"
+        android:text="Przeglądaj" />
+
+    <TextView
+        android:id="@+id/wybierzt"
+        android:layout_width="155dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="183dp"
+        android:layout_marginStart="30dp"
+        android:text="Wybierz plik do dodania"
+        android:textSize="28sp" />
+
+    <TextView
+        android:id="@+id/typszkolyt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="64dp"
+        android:text="Wybierz typ szkoły"
+        android:textSize="24sp" />
+
+    <Spinner
+        android:id="@+id/typspinner"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/typszkolyt" />
+
+    <Button
+        android:id="@+id/wyslijplikb"
+        android:layout_width="135dp"
+        android:layout_height="88dp"
+        android:layout_alignEnd="@+id/wybierzt"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="27dp"
+        android:text="Wyślij" />
+
+    <Button
+        android:id="@+id/cancelb"
+        android:layout_width="135dp"
+        android:layout_height="88dp"
+        android:layout_alignStart="@+id/przegladajb"
+        android:layout_alignTop="@+id/wyslijplikb"
+        android:text="Anuluj" />
+
+    <TextView
+        android:id="@+id/katszkolnat2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="149dp"
+        android:text="Wybierz kategorię szkolną"
+        android:textSize="24sp" />
+
+    <Spinner
+        android:id="@+id/katspinner"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/katszkolnat2" />
+
+    <TextView
+        android:id="@+id/wybranyt"
+        android:layout_width="134dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/wybranyt2"
+        android:layout_alignStart="@+id/przegladajb"
+        android:text="Brak"
+        android:textSize="22sp" />
+
+</RelativeLayout>

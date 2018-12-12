@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/zalogowanyt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:text="Zostałeś zalogowany! Wybierz jedną z poniższych opcji"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/licb"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="175dp"
+        android:text="Liceum" />
+
+    <Button
+        android:id="@+id/techb"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/licb"
+        android:text="Technikum" />
+
+    <Button
+        android:id="@+id/dodajb"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/techb"
+        android:text="Dodaj własny materiał" />
+</RelativeLayout>
