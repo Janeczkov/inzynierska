@@ -37,7 +37,7 @@ public class materialy extends AppCompatActivity {
 
         final List<LinearLayout> lista = new ArrayList<LinearLayout>();
         TableLayout tableLayout=(TableLayout) findViewById(R.id.tableLayout);
-        int benc = 4;
+        int benc = 3;
         /*for(int i=0;i<benc;i++){
             final TableRow tableRow=(TableRow) LayoutInflater.from(dwojeczka.this).inflate(R.layout.radiob,null);
             ((TextView) tableRow.findViewById(R.id.id)).setText("id "+(i+1));
