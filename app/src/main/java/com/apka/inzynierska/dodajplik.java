@@ -56,6 +56,8 @@ public class dodajplik extends AppCompatActivity implements AdapterView.OnItemSe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dodajplik);
         Intent intent=getIntent();
+        final String username=intent.getStringExtra("username");
+
         przegladajb = (Button) findViewById(R.id.przegladajb);
         wyslijplikb = (Button) findViewById(R.id.wyslijplikb);
         final String ip = getString(R.string.ip);
@@ -107,7 +109,8 @@ public class dodajplik extends AppCompatActivity implements AdapterView.OnItemSe
                     new UploadMethod(dodajplik.this).execute(ip + "/uploadFile/", readTextFromUri(uri),
                             getFileName(uri),
                             typspinner.getSelectedItem().toString(),
-                            katspinner.getSelectedItem().toString());
+                            katspinner.getSelectedItem().toString(),
+                            username);
                     Toast.makeText(getApplicationContext(), "Poprawnie wysłano plik", Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
                     e.printStackTrace();

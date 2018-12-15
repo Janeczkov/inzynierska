@@ -4,6 +4,7 @@ package com.apka.inzynierska;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,64 +45,7 @@ public class logowanie extends AppCompatActivity implements TaskCompleted {
             public void onClick(View v) {
 
                 new GetMethod(logowanie.this).execute(ip + "/accounts/");
-                //Log.e("lol", "lol" + ip);
 
-                /*new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        String link = "http://192.168.0.11:8080/accounts/";
-                        BufferedReader reader = null;
-
-                        try {
-                            URL url = new URL(link);
-                            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                            InputStream inputStream = urlConnection.getInputStream();
-                            reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-                            StringBuffer buffer = new StringBuffer();
-                            String line ="";
-                            while ((line = reader.readLine()) != null){
-                                buffer.append(line);
-                            }
-                            String finalJson = buffer.toString();
-
-                            JSONArray jsonArray = new JSONArray(finalJson);
-
-
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject jsonobject = jsonArray.getJSONObject(i);
-                                final String username = jsonobject.getString("username");
-                                final String password = jsonobject.getString("password");
-
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        if (usernamecontent.equals(username))
-                                        {
-                                            if (passwordcontent.equals(password))
-                                            {
-                                                Toast.makeText(getApplicationContext(), "Zostałeś zalogowany!", Toast.LENGTH_LONG).show();
-                                                logowanie.this.startActivity(zalogowany);
-                                            }
-                                            else
-                                            {
-                                                Toast.makeText(getApplicationContext(), "Podałeś niepoprawne dane, spróbuj jeszcze raz.", Toast.LENGTH_LONG).show();
-                                            }
-                                            Toast.makeText(getApplicationContext(), "Podałeś niepoprawne dane, spróbuj jeszcze raz.", Toast.LENGTH_LONG).show();
-                                        }
-                                        else
-                                        {
-                                            Toast.makeText(getApplicationContext(), "Podałeś niepoprawne dane, spróbuj jeszcze raz.", Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                                });
-
-
-
-                                /*runOnUiThread(new Runnable() {
-                                    public void run() {
-                                        Toast.makeText(getApplicationContext(), id, Toast.LENGTH_LONG).show();
-                                    }
-                                });*/
 
             }
 
@@ -177,11 +121,16 @@ public class logowanie extends AppCompatActivity implements TaskCompleted {
                 JSONObject jsonobject = jsonArray.getJSONObject(i);
                 final String username = jsonobject.getString("username");
                 final String password = jsonobject.getString("password");
+                final String rank = jsonobject.getString("rank");
+
 
                 if (usernamecontent.equals(username)) {
                     if (passwordcontent.equals(password)) {
                         logged = true;
                         Toast.makeText(getApplicationContext(), "Zostałeś zalogowany!", Toast.LENGTH_LONG).show();
+                        zalogowany.putExtra("username", username);
+                        zalogowany.putExtra("rank", rank);
+
                         logowanie.this.startActivity(zalogowany);
                         break;
                     }

@@ -87,13 +87,15 @@ public class UploadMethod extends AsyncTask<String , String ,String> {
 
             outputStream.writeBytes(content);
             outputStream.writeBytes(lineEnd);
+            outputStream.writeBytes(twoHyphens + boundary + lineEnd);
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"typ\"" + lineEnd + lineEnd + strings[3]);
             outputStream.writeBytes(lineEnd);
             outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-
-            outputStream.writeBytes("Content-Disposition: form-data; name=\"typ\"" + lineEnd + lineEnd + strings[3] + lineEnd);
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"kategoria\"" + lineEnd + lineEnd + strings[4]);
             outputStream.writeBytes(lineEnd);
             outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-            outputStream.writeBytes("Content-Disposition: form-data; name=\"kategoria\"" + lineEnd + lineEnd + strings[4] + lineEnd);
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"autor\"" + lineEnd + lineEnd + strings[5]);
+            outputStream.writeBytes(lineEnd);
 
 
 

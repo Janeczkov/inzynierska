@@ -7,9 +7,10 @@
         android:id="@+id/zalogowanyt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="14dp"
+        android:gravity="center"
         android:text="Zostałeś zalogowany! Wybierz jedną z poniższych opcji"
         android:textSize="18sp" />
 
@@ -18,8 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="88dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="175dp"
+        android:layout_below="@+id/zalogowanyt"
         android:text="Liceum" />
 
     <Button
@@ -37,4 +37,22 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/techb"
         android:text="Dodaj własny materiał" />
+
+    <Button
+        android:id="@+id/uzytkownicyb"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/sprawdzajb"
+        android:text="Przeglądaj użytkowników"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/sprawdzajb"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/dodajb"
+        android:text="Przęgladaj materiały"
+        android:visibility="invisible" />
 </RelativeLayout>

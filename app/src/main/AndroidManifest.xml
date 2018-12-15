@@ -29,5 +29,6 @@
         <activity android:name=".wybormaterialu"></activity>
         <activity android:name=".materialy"></activity>
         <activity android:name=".kattechnikum"></activity>
+        <activity android:name=".sprawdzanieMaterialow"></activity>
 </application>
 </manifest>

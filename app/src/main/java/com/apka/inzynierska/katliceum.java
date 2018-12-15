@@ -31,8 +31,8 @@ public class katliceum extends AppCompatActivity {
         matb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                atmaterials.putExtra("typ", "liceum");
-                atmaterials.putExtra("kategoria", "matematyka");
+                atmaterials.putExtra("typ", "Liceum");
+                atmaterials.putExtra("kategoria", "Matematyka");
                 katliceum.this.startActivity(atmaterials);
             }
         });
