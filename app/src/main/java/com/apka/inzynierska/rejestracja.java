@@ -2,8 +2,10 @@ package com.apka.inzynierska;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,20 +30,21 @@ public class rejestracja extends AppCompatActivity implements TaskCompleted {
         final String ip = getString(R.string.ip);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rejestracja);
-        Intent intent=getIntent();
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setTitle("Rejestracja");
+        actionbar.setDisplayHomeAsUpEnabled(true);
 
 
         main=new Intent(rejestracja.this,MainActivity.class);
-        regb=(Button) findViewById(R.id.registerb);
-        cancelb=(Button) findViewById(R.id.regcancelb);
+        regb = findViewById(R.id.registerb);
+        cancelb = findViewById(R.id.regcancelb);
 
 
         regb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                usernamereg = (EditText) findViewById(R.id.usernamereg);
-                passwordreg = (EditText) findViewById(R.id.passwordreg);
+                usernamereg = findViewById(R.id.usernamereg);
+                passwordreg = findViewById(R.id.passwordreg);
                 final String userregcontent = usernamereg.getText().toString();
                 final String passregcontent = passwordreg.getText().toString();
                 if ((userregcontent.isEmpty())||(passregcontent.isEmpty())) {
@@ -60,20 +63,24 @@ public class rejestracja extends AppCompatActivity implements TaskCompleted {
         cancelb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //rejestracja.this.startActivity(main);
-                //uzywam finish zamiast start activity
                 finish();
             }
         });
     }
 
+    public boolean onOptionsItemSelected(MenuItem item){
+        /*Intent myIntent = new Intent(getApplicationContext(), logowanie.class);
+        startActivityForResult(myIntent, 0);*/
+        finish();
+        return true;
+    }
+
     @Override
     public void onTaskComplete(final String result) {
-        //Log.e("bye", result);
         String ip = getString(R.string.ip);
 
-        final EditText usernamereg = (EditText) findViewById(R.id.usernamereg);
-        final EditText passwordreg = (EditText) findViewById(R.id.passwordreg);
+        final EditText usernamereg = findViewById(R.id.usernamereg);
+        final EditText passwordreg = findViewById(R.id.passwordreg);
 
         final String userregcontent = usernamereg.getText().toString();
         final String passregcontent = passwordreg.getText().toString();
@@ -85,7 +92,6 @@ public class rejestracja extends AppCompatActivity implements TaskCompleted {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonobject = jsonArray.getJSONObject(i);
                 final String username = jsonobject.getString("username");
-                final String password = jsonobject.getString("password");
 
                 if (userregcontent.equals(username)) {
                     alreadyregistered = true;
@@ -97,10 +103,8 @@ public class rejestracja extends AppCompatActivity implements TaskCompleted {
                 new PostMethod(rejestracja.this).execute(ip + "/accounts/", userregcontent, passregcontent);
                 Toast.makeText(getApplicationContext(), "Zostałes poprawnie zarejestrowany! Możesz się zalogować.", Toast.LENGTH_LONG).show();
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 }

@@ -4,9 +4,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -28,34 +30,28 @@ public class sprawdzanieMaterialow extends AppCompatActivity implements TaskComp
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sprawdzaniematerialow);
-        Intent intent = getIntent();
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setTitle("Materiały do przejrzenia");
+        actionbar.setDisplayHomeAsUpEnabled(true);
 
         final String ip = getString(R.string.ip);
 
-        final String username = intent.getStringExtra("username");
-        final String rank = intent.getStringExtra("rank");
-
-        final Intent katliceum = new Intent(sprawdzanieMaterialow.this, katliceum.class);
-        final Intent dodajplik = new Intent(sprawdzanieMaterialow.this, dodajplik.class);
-
-        final Button licb = (Button) findViewById(R.id.licb);
-        final Button techb = (Button) findViewById(R.id.techb);
-        final Button dodajb = (Button) findViewById(R.id.dodajb);
-        final Button sprawdzajb = (Button) findViewById(R.id.sprawdzajb);
-        final Button uzytkownicyb = (Button) findViewById(R.id.uzytkownicyb);
-
         new GetMethod(sprawdzanieMaterialow.this).execute(ip + "/file/all/");
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        /*Intent myIntent = new Intent(getApplicationContext(), logowanie.class);
+        startActivityForResult(myIntent, 0);*/
+        finish();
+        return true;
     }
 
     @Override
     public void onTaskComplete(final String result) {
 
-        Intent intent = getIntent();
-        final String typ = intent.getStringExtra("typ");
-        final String kategoria = intent.getStringExtra("kategoria");
         final String ip = getString(R.string.ip);
 
-        LinearLayout linearLayout=(LinearLayout) findViewById(R.id.linearLayout);
+        LinearLayout linearLayout = findViewById(R.id.linearLayout);
 
         JSONArray jsonArray = null;
         try {
@@ -111,7 +107,6 @@ public class sprawdzanieMaterialow extends AppCompatActivity implements TaskComp
                             AlertDialog.Builder builder = new AlertDialog.Builder(sprawdzanieMaterialow.this);
                             builder.setTitle("Usunięcie materiału");
                             builder.setMessage("Czy na pewno usunąć ten materiał?");
-                            //builder.setIcon(R.drawable.ic_launcher);
                             builder.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.dismiss();
@@ -140,12 +135,10 @@ public class sprawdzanieMaterialow extends AppCompatActivity implements TaskComp
                             AlertDialog.Builder builder = new AlertDialog.Builder(sprawdzanieMaterialow.this);
                             builder.setTitle("Pobieranie pliku");
                             builder.setMessage("Czy na pewno chcesz pobrac?");
-                            //builder.setIcon(R.drawable.ic_launcher);
                             builder.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.dismiss();
                                     new DownloadMethod(sprawdzanieMaterialow.this).execute(ip + "/file/download/" + fileid);
-
                                 }
                             });
                             builder.setNegativeButton("Nie", new DialogInterface.OnClickListener() {

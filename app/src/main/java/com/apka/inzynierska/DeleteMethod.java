@@ -58,8 +58,6 @@ public class DeleteMethod extends AsyncTask<String , String ,String> {
             isr.close();
             reader.close();*/
 
-            urlConnection.connect();
-
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {

@@ -15,6 +15,7 @@ import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -55,7 +56,6 @@ public class dodajplik extends AppCompatActivity implements AdapterView.OnItemSe
     Uri uri = null;
     Spinner typspinner, katspinner;
     String displayName;
-    Uri imageUri;
     String size = null;
 
 
@@ -66,24 +66,25 @@ public class dodajplik extends AppCompatActivity implements AdapterView.OnItemSe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dodajplik);
         Intent intent=getIntent();
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setTitle("Dodawanie pliku");
+        actionbar.setDisplayHomeAsUpEnabled(true);
+
         final String username=intent.getStringExtra("username");
 
-        przegladajb = (Button) findViewById(R.id.przegladajb);
-        wyslijplikb = (Button) findViewById(R.id.wyslijplikb);
+        przegladajb = findViewById(R.id.przegladajb);
+        wyslijplikb = findViewById(R.id.wyslijplikb);
         final String ip = getString(R.string.ip);
 
-        typspinner = (Spinner) findViewById(R.id.typspinner);
-        katspinner = (Spinner) findViewById(R.id.katspinner);
-
-        //String typcontent = typspinner.getSelectedItem().toString();
-        //String katcontent = katspinner.getSelectedItem().toString();
+        typspinner = findViewById(R.id.typspinner);
+        katspinner = findViewById(R.id.katspinner);
 
         ArrayAdapter adapter1 = ArrayAdapter.createFromResource(this,
                 R.array.typ_array, android.R.layout.simple_spinner_dropdown_item);
         typspinner.setAdapter(adapter1);
         typspinner.setOnItemSelectedListener(this);
 
-        final Button cancelb=(Button) findViewById(R.id.cancelb);
+        final Button cancelb = findViewById(R.id.cancelb);
 
 
 
@@ -109,13 +110,6 @@ public class dodajplik extends AppCompatActivity implements AdapterView.OnItemSe
         wyslijplikb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Log.i("benc", "Uri: " + uri.toString());
-                /*try {
-                    Log.i("benc", "Uri string: " + readTextFromUri(uri));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }*/
-
                 if (uri != null){
                   try {
                         TaskParamsHelper params = new TaskParamsHelper(ip + "/file/upload/", readTextFromUri(uri),
@@ -174,23 +168,11 @@ public class dodajplik extends AppCompatActivity implements AdapterView.OnItemSe
 
     }
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+    public boolean onOptionsItemSelected(MenuItem item){
+        /*Intent myIntent = new Intent(getApplicationContext(), logowanie.class);
+        startActivityForResult(myIntent, 0);*/
+        finish();
         return true;
-    }*/
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.string.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -281,49 +263,50 @@ public class dodajplik extends AppCompatActivity implements AdapterView.OnItemSe
 
             if (resultData != null) {
                 uri = resultData.getData();
-                Log.i("benc", "Uri: " + uri.toString());
-                Log.i("path", "Uri: " + uri.getPath());
-                String[] projection = {MediaStore.Images.ImageColumns.DATA};
-                Cursor cursor = dodajplik.this.getContentResolver()
-                        .query(uri, projection, null, null, null, null);
-                try {
-                    // moveToFirst() returns false if the cursor has 0 rows.  Very handy for
-                    // "if there's anything to look at, look at it" conditionals.
-                    if (cursor != null && cursor.moveToFirst()) {
-                        int indeksik = cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA);
-                       displayName = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA));
-                        Log.i("bencownia", "Display Name: " + indeksik);
+                if (uri.getPath().length()>40) {
+                    Toast.makeText(getApplicationContext(), "Nazwa pliku jest za długa", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Log.i("uritostring", "Uri: " + uri.toString());
+                    Log.i("uripath", "Uri: " + uri.getPath());
+                    String[] projection = {MediaStore.Images.ImageColumns.DATA};
+                    Cursor cursor = dodajplik.this.getContentResolver()
+                            .query(uri, projection, null, null, null, null);
+                    try {
+                        // moveToFirst() returns false if the cursor has 0 rows.  Very handy for
+                        // "if there's anything to look at, look at it" conditionals.
+                        if (cursor != null && cursor.moveToFirst()) {
+                            int indeksik = cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA);
+                            displayName = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA));
 
 
-                        int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE) + 1;
+                            int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE) + 1;
 
-                        Log.i("bencownia", "Display Name: " + sizeIndex);
-                        // If the size is unknown, the value stored is null.  But since an
-                        // int can't be null in Java, the behavior is implementation-specific,
-                        // which is just a fancy term for "unpredictable".  So as
-                        // a rule, check if it's null before assigning to an int.  This will
-                        // happen often:  The storage API allows for remote files, whose
-                        // size might not be locally known.
+                            // If the size is unknown, the value stored is null.  But since an
+                            // int can't be null in Java, the behavior is implementation-specific,
+                            // which is just a fancy term for "unpredictable".  So as
+                            // a rule, check if it's null before assigning to an int.  This will
+                            // happen often:  The storage API allows for remote files, whose
+                            // size might not be locally known.
 
 
-                        if (!cursor.isNull(sizeIndex)) {
-                            // Technically the column stores an int, but cursor.getString()
-                            // will do the conversion automatically.
+                            if (!cursor.isNull(sizeIndex)) {
+                                // Technically the column stores an int, but cursor.getString()
+                                // will do the conversion automatically.
+                                size = cursor.getString(sizeIndex);
+                            } else {
+                                size = "Unknown";
+                            }
                             size = cursor.getString(sizeIndex);
-                        } else {
-                            size = "Unknown";
+                            Log.i("size", "Size: " + size);
+
+                            wybrany.setText(getFileName(uri));
+
+
+                            //imageUri = Uri.parse(displayName);
                         }
-                        size = cursor.getString(sizeIndex);
-                        Log.i("benczik", "Size: " + size);
-
-                        wybrany.setText(getFileName(uri));
-
-
-
-                        //imageUri = Uri.parse(displayName);
-                    }
-                } finally {
-                    cursor.close();/*
+                    } finally {
+                        cursor.close();/*
                 Uri selectedImageUri = resultData.getData();
                 String[] projection = {MediaStore.Images.ImageColumns.DATA};
                 CursorLoader loader = new CursorLoader(this, selectedImageUri, projection, null, null, null);
@@ -332,70 +315,22 @@ public class dodajplik extends AppCompatActivity implements AdapterView.OnItemSe
                     int column_index = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATA);
                     imageUri = Uri.parse(cursor.getString(column_index));
                     if(imageUri!=null){
-                        Log.e("zjebane", "gowno");
+                        Log.e("blad", "jakis");
                     }
                 }
                 cursor.close();*/
 
-                    //dumpImageMetaData(uri);
-                    //showImage(uri);
+                        //dumpImageMetaData(uri);
+                        //showImage(uri);
+                    }
                 }
             }
-        }
-    }
-
-    public void dumpImageMetaData(Uri uri) {
-
-
-        // The query, since it only applies to a single document, will only return
-        // one row. There's no need to filter, sort, or select fields, since we want
-        // all fields for one document.
-        Cursor cursor = dodajplik.this.getContentResolver()
-                .query(uri, null, null, null, null, null);
-
-        try {
-            // moveToFirst() returns false if the cursor has 0 rows.  Very handy for
-            // "if there's anything to look at, look at it" conditionals.
-            if (cursor != null && cursor.moveToFirst()) {
-
-                // Note it's called "Display Name".  This is
-                // provider-specific, and might not necessarily be the file name.
-                displayName = cursor.getString(
-                        cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                Log.i("bencownia", "Display Name: " + displayName);
-
-                wybrany.setText(displayName);
-
-                int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
-                // If the size is unknown, the value stored is null.  But since an
-                // int can't be null in Java, the behavior is implementation-specific,
-                // which is just a fancy term for "unpredictable".  So as
-                // a rule, check if it's null before assigning to an int.  This will
-                // happen often:  The storage API allows for remote files, whose
-                // size might not be locally known.
-                String size = null;
-                if (!cursor.isNull(sizeIndex)) {
-                    // Technically the column stores an int, but cursor.getString()
-                    // will do the conversion automatically.
-                    size = cursor.getString(sizeIndex);
-                } else {
-                    size = "Unknown";
-                }
-                Log.i("benczik", "Size: " + size);
-            }
-        } finally {
-            cursor.close();
         }
     }
 
     private byte[] readTextFromUri(Uri uri) throws IOException {
-        String sourceFilename = uri.getPath();
-        BufferedInputStream bis;
-
-        Log.e("wtf", "co jest");
         InputStream inputStream = getContentResolver().openInputStream(uri);
 
-        Log.e("strimek", "lol" + inputStream);
         byte[] data = IOUtils.toByteArray(inputStream);
 
         //ByteArrayOutputStream buffer = new ByteArrayOutputStream();

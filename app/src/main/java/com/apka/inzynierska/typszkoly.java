@@ -2,7 +2,9 @@ package com.apka.inzynierska;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -12,16 +14,16 @@ public class typszkoly extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_typszkoly);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setTitle("Typ szkoły");
+        actionbar.setDisplayHomeAsUpEnabled(true);
 
-        Intent intent=getIntent();
+        final Intent katliceum = new Intent(typszkoly.this, katliceum.class);
+        final Intent kattechnikum = new Intent(typszkoly.this, kattechnikum.class);
 
-        final Intent katliceum=new Intent(typszkoly.this,katliceum.class);
-        final Intent kattechnikum=new Intent(typszkoly.this,kattechnikum.class);
-
-        final Button licb = (Button) findViewById(R.id.licb);
-        final Button techb = (Button) findViewById(R.id.techb);
+        final Button licb = findViewById(R.id.licb);
+        final Button techb = findViewById(R.id.techb);
 
         licb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,5 +37,12 @@ public class typszkoly extends AppCompatActivity {
                 typszkoly.this.startActivity(kattechnikum);
             }
         });
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        /*Intent myIntent = new Intent(getApplicationContext(), logowanie.class);
+        startActivityForResult(myIntent, 0);*/
+        finish();
+        return true;
     }
 }

@@ -4,9 +4,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -25,36 +27,36 @@ import java.io.Writer;
 
 public class materialy extends AppCompatActivity implements TaskCompleted,DownloadCompleted {
 
-    /*private String typ = "liceum";
-    private Button matb;
-    private Button polskib;
-    private Button infb;
-    private Button angb;*/
-    private String fileName;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_materialy);
-        Intent intent = getIntent();
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setTitle("Dostępne materiały");
+        actionbar.setDisplayHomeAsUpEnabled(true);
+
         final String ip = getString(R.string.ip);
 
-
         new GetMethod(materialy.this).execute(ip + "/file/all/");
+    }
 
+    public boolean onOptionsItemSelected(MenuItem item){
+        /*Intent myIntent = new Intent(getApplicationContext(), logowanie.class);
+        startActivityForResult(myIntent, 0);*/
+        finish();
+        return true;
     }
 
     @Override
     public void onTaskComplete(final String result) {
 
-        Log.e("co jest", result);
         Intent intent = getIntent();
         final String ip = getString(R.string.ip);
         final String typ = intent.getStringExtra("typ");
         final String kategoria = intent.getStringExtra("kategoria");
 
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
+        LinearLayout linearLayout = findViewById(R.id.linearLayout);
 
         JSONArray jsonArray = null;
         try {
@@ -63,7 +65,7 @@ public class materialy extends AppCompatActivity implements TaskCompleted,Downlo
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonobject = jsonArray.getJSONObject(i);
                 final int fileid = jsonobject.getInt("id");
-                fileName = jsonobject.getString("fileName");
+                String fileName = jsonobject.getString("fileName");
                 final String typmaterialu = jsonobject.getString("typ");
                 final String kategoriamaterialu = jsonobject.getString("category");
                 final String akceptowany = jsonobject.getString("accepted");

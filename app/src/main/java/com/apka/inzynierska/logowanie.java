@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,12 +18,6 @@ import org.json.JSONObject;
 
 public class logowanie extends AppCompatActivity implements TaskCompleted {
 
-    private String baseUrl;
-    private String username;
-    private String password;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -31,24 +26,16 @@ public class logowanie extends AppCompatActivity implements TaskCompleted {
         setContentView(R.layout.activity_login);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setTitle("Logowanie");
+        actionbar.setDisplayHomeAsUpEnabled(true);
         final String ip = getString(R.string.ip);
+        final Button loginb = findViewById(R.id.loginb);
+        final Button cancelb= findViewById(R.id.logcancelb);
 
-
-
-
-        final Intent main=new Intent(logowanie.this,MainActivity.class);
-        final Intent zalogowany=new Intent(logowanie.this,zalogowany.class);
-
-        final Button loginb = (Button) findViewById(R.id.loginb);
-        final Button cancelb=(Button) findViewById(R.id.logcancelb);
 
         loginb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 new GetMethod(logowanie.this).execute(ip + "/accounts/");
-
-
             }
 
                             /*jsonReader.beginObject(); // Start processing the JSON object
@@ -98,21 +85,27 @@ public class logowanie extends AppCompatActivity implements TaskCompleted {
         cancelb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //logowanie.this.startActivity(main);
                 finish();
             }
         });
 
 
     }
+    public boolean onOptionsItemSelected(MenuItem item){
+        /*Intent myIntent = new Intent(getApplicationContext(), logowanie.class);
+        startActivityForResult(myIntent, 0);*/
+        finish();
+        return true;
+    }
+
     @Override
     public void onTaskComplete(final String result) {
 
         Log.e("rezulcik", result);
 
-        final EditText usernamelogin = (EditText) findViewById(R.id.usernamelogin);
-        final EditText passwordlogin = (EditText) findViewById(R.id.passwordlogin);
-        final Intent zalogowany=new Intent(logowanie.this,zalogowany.class);
+        final EditText usernamelogin = findViewById(R.id.usernamelogin);
+        final EditText passwordlogin =  findViewById(R.id.passwordlogin);
+        final Intent zalogowany = new Intent(logowanie.this,zalogowany.class);
 
         final String usernamecontent = usernamelogin.getText().toString();
         final String passwordcontent = passwordlogin.getText().toString();
@@ -127,7 +120,6 @@ public class logowanie extends AppCompatActivity implements TaskCompleted {
                 final String password = jsonobject.getString("password");
                 final String rank = jsonobject.getString("rank");
 
-
                 if (usernamecontent.equals(username)) {
                     if (passwordcontent.equals(password)) {
                         logged = true;
@@ -140,15 +132,12 @@ public class logowanie extends AppCompatActivity implements TaskCompleted {
                     }
                 }
             }
-            if (logged == false) {
+            if (!logged) {
                 Toast.makeText(getApplicationContext(), "Podałeś niepoprawne dane, spróbuj jeszcze raz.", Toast.LENGTH_LONG).show();
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
     }
 
 }

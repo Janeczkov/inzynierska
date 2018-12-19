@@ -21,7 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".typszkoly" />
         <activity android:name=".logowanie" />
         <activity android:name=".rejestracja" />
         <activity android:name=".katliceum" />
@@ -31,6 +30,7 @@
         <activity android:name=".kattechnikum" />
         <activity android:name=".sprawdzanieMaterialow" />
         <activity android:name=".sprawdzanieUzytkownikow" />
+        <activity android:name=".typszkoly" />
     </application>
 
 </manifest>

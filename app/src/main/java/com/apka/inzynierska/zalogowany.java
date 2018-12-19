@@ -2,8 +2,10 @@ package com.apka.inzynierska;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -12,10 +14,11 @@ public class zalogowany extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_zalogowany);
-
         Intent intent=getIntent();
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setTitle("Zostałeś zalogowany");
+        actionbar.setDisplayHomeAsUpEnabled(true);
 
         final String username=intent.getStringExtra("username");
         final String rank=intent.getStringExtra("rank");
@@ -82,5 +85,12 @@ public class zalogowany extends AppCompatActivity {
                 zalogowany.this.startActivity(listaUzytkownikow);
             }
         });
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        /*Intent myIntent = new Intent(getApplicationContext(), logowanie.class);
+        startActivityForResult(myIntent, 0);*/
+        finish();
+        return true;
     }
 }

@@ -66,7 +66,6 @@ public class DownloadMethod extends AsyncTask<String , Void ,String> {
             }
             File file = new File(root, filename);
             boolean filedone = false;
-            //Log.e("co jest", "lol");
             if (!file.exists()) {
                 filedone = file.createNewFile();
             }
@@ -79,7 +78,6 @@ public class DownloadMethod extends AsyncTask<String , Void ,String> {
                 stream.write(buffer, 0, read);
             }
             */
-            Log.e("co jest", "lol");
 
             if (filedone) {
                 result = "Poprawnie pobrano plik";
