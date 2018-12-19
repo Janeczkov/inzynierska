@@ -67,6 +67,9 @@ public class PostMethod extends AsyncTask<String , String ,String> {
 
             Log.e("STATUS", String.valueOf(urlConnection.getResponseCode()));
             Log.e("MSG" , urlConnection.getResponseMessage());
+
+            os.flush();
+            os.close();
             urlConnection.disconnect();
 
 /*
@@ -85,7 +88,6 @@ public class PostMethod extends AsyncTask<String , String ,String> {
             isr.close();
             reader.close();*/
 
-            urlConnection.connect();
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

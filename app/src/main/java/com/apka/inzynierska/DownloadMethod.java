@@ -86,6 +86,10 @@ public class DownloadMethod extends AsyncTask<String , Void ,String> {
                 result = "Wystąpił błąd";
             }
 
+            stream.flush();
+            stream.close();
+            urlConnection.disconnect();
+
             /*
             FileWriter writer = new FileWriter(file);
             writer.append(content);

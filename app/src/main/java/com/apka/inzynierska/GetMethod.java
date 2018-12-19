@@ -44,6 +44,10 @@ public class GetMethod extends AsyncTask<String , Void ,String> {
             }
             finalJson = buffer.toString();
 
+            inputStream.close();
+            reader.close();
+            urlConnection.disconnect();
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
