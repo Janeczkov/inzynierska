@@ -33,10 +33,14 @@ public class materialy extends AppCompatActivity implements TaskCompleted,Downlo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_materialy);
         ActionBar actionbar = getSupportActionBar();
-        actionbar.setTitle("Dostępne materiały");
         actionbar.setDisplayHomeAsUpEnabled(true);
+        Intent intent = getIntent();
 
         final String ip = getString(R.string.ip);
+
+        final String typ = intent.getStringExtra("typ");
+        final String kategoria = intent.getStringExtra("kategoria");
+        actionbar.setTitle(typ + "; " + kategoria);
 
         new GetMethod(materialy.this).execute(ip + "/file/all/");
     }
@@ -55,6 +59,9 @@ public class materialy extends AppCompatActivity implements TaskCompleted,Downlo
         final String ip = getString(R.string.ip);
         final String typ = intent.getStringExtra("typ");
         final String kategoria = intent.getStringExtra("kategoria");
+
+        String rank = intent.getStringExtra("rank");
+        Log.e("ranga", rank);
 
         LinearLayout linearLayout = findViewById(R.id.linearLayout);
 
@@ -77,8 +84,12 @@ public class materialy extends AppCompatActivity implements TaskCompleted,Downlo
                         //LinearLayout linear=(LinearLayout) tableRow.findViewById(R.id.linear);
                         linearLayout.addView(linear);
 
-                        final Button downloadb = (Button) linear.findViewById(R.id.downloadb);
+                        final Button downloadb = linear.findViewById(R.id.downloadb);
+                        final Button deleteb = linear.findViewById(R.id.deleteb);
 
+                        if ((rank.equals("2")) || rank.equals("3")) {
+                            deleteb.setVisibility(View.VISIBLE);
+                        }
 
                         downloadb.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -91,6 +102,31 @@ public class materialy extends AppCompatActivity implements TaskCompleted,Downlo
                                     public void onClick(DialogInterface dialog, int id) {
                                         dialog.dismiss();
                                         new DownloadMethod(materialy.this).execute(ip + "/file/download/" + fileid);
+
+                                    }
+                                });
+                                builder.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                                AlertDialog alert = builder.create();
+                                alert.show();
+                            }
+                        });
+                        deleteb.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(materialy.this);
+                                builder.setTitle("Usunięcie materiału");
+                                builder.setMessage("Czy na pewno usunąć ten materiał?");
+                                builder.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.dismiss();
+                                        new DeleteMethod(materialy.this).execute(ip + "/file/delete/" + fileid);
+                                        finish();
+                                        startActivity(getIntent());
+                                        Toast.makeText(materialy.this, "Usunięto plik", Toast.LENGTH_LONG).show();
 
                                     }
                                 });

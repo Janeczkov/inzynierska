@@ -17,6 +17,9 @@ public class kattechnikum extends AppCompatActivity {
         actionbar.setTitle("Technikum");
         actionbar.setDisplayHomeAsUpEnabled(true);
 
+        Intent intent=getIntent();
+        final String rank = intent.getStringExtra("rank");
+
         setContentView(R.layout.activity_kategorietechnikum);
         final Button matb = findViewById(R.id.matb);
         final Button polskib = findViewById(R.id.polskib);
@@ -24,6 +27,7 @@ public class kattechnikum extends AppCompatActivity {
         final Button angb = findViewById(R.id.angb);
 
         final Intent atmaterials = new Intent(kattechnikum.this,materialy.class);
+        atmaterials.putExtra("rank", rank);
 
         matb.setOnClickListener(new View.OnClickListener() {
             @Override

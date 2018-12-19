@@ -19,12 +19,16 @@ public class katliceum extends AppCompatActivity {
         actionbar.setTitle("Liceum");
         actionbar.setDisplayHomeAsUpEnabled(true);
 
+        Intent intent=getIntent();
+        final String rank = intent.getStringExtra("rank");
+
         final Button matb = findViewById(R.id.matb);
         final Button polskib = findViewById(R.id.polskib);
         final Button fizb = findViewById(R.id.fizb);
         final Button angb = findViewById(R.id.angb);
 
         final Intent atmaterials=new Intent(katliceum.this,materialy.class);
+        atmaterials.putExtra("rank", rank);
 
         matb.setOnClickListener(new View.OnClickListener() {
             @Override

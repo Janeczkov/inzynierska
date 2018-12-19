@@ -110,20 +110,25 @@ public class dodajplik extends AppCompatActivity implements AdapterView.OnItemSe
         wyslijplikb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (uri != null){
-                  try {
-                        TaskParamsHelper params = new TaskParamsHelper(ip + "/file/upload/", readTextFromUri(uri),
-                                getFileName(uri),
-                                typspinner.getSelectedItem().toString(),
-                                katspinner.getSelectedItem().toString(),
-                                username);
+
+                if (getFileName(uri).length()>40) {
+                    Toast.makeText(getApplicationContext(), "Nazwa pliku jest za długa", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    if (uri != null) {
+                        try {
+                            TaskParamsHelper params = new TaskParamsHelper(ip + "/file/upload/", readTextFromUri(uri),
+                                    getFileName(uri),
+                                    typspinner.getSelectedItem().toString(),
+                                    katspinner.getSelectedItem().toString(),
+                                    username);
 
 
-                      new UploadMethod(dodajplik.this).execute(params);
-                        Toast.makeText(getApplicationContext(), "Poprawnie wysłano plik", Toast.LENGTH_LONG).show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                            new UploadMethod(dodajplik.this).execute(params);
+                            Toast.makeText(getApplicationContext(), "Poprawnie wysłano plik", Toast.LENGTH_LONG).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 /*
                     File root = new File(Environment.getExternalStorageDirectory(), "Materiały");
                     if (!root.exists()) {
@@ -148,9 +153,9 @@ public class dodajplik extends AppCompatActivity implements AdapterView.OnItemSe
                         }
                     }*/
 
-                }
-                else {
-                    Toast.makeText(getApplicationContext(), "Wybierz plik", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Wybierz plik", Toast.LENGTH_LONG).show();
+                    }
                 }
 
 
@@ -263,10 +268,6 @@ public class dodajplik extends AppCompatActivity implements AdapterView.OnItemSe
 
             if (resultData != null) {
                 uri = resultData.getData();
-                if (uri.getPath().length()>40) {
-                    Toast.makeText(getApplicationContext(), "Nazwa pliku jest za długa", Toast.LENGTH_LONG).show();
-                }
-                else {
                     Log.i("uritostring", "Uri: " + uri.toString());
                     Log.i("uripath", "Uri: " + uri.getPath());
                     String[] projection = {MediaStore.Images.ImageColumns.DATA};
@@ -323,7 +324,7 @@ public class dodajplik extends AppCompatActivity implements AdapterView.OnItemSe
                         //dumpImageMetaData(uri);
                         //showImage(uri);
                     }
-                }
+
             }
         }
     }
