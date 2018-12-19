@@ -21,8 +21,10 @@ public class zalogowany extends AppCompatActivity {
         final String rank=intent.getStringExtra("rank");
 
         final Intent katliceum=new Intent(zalogowany.this,katliceum.class);
+        final Intent kattechnikum=new Intent(zalogowany.this,kattechnikum.class);
         final Intent dodajplik=new Intent(zalogowany.this,dodajplik.class);
         final Intent sprawdzanieMaterialow=new Intent(zalogowany.this,sprawdzanieMaterialow.class);
+        final Intent listaUzytkownikow=new Intent(zalogowany.this,sprawdzanieUzytkownikow.class);
 
         final Button licb = (Button) findViewById(R.id.licb);
         final Button techb = (Button) findViewById(R.id.techb);
@@ -52,17 +54,17 @@ public class zalogowany extends AppCompatActivity {
         techb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                katliceum.putExtra("username", username);
-                katliceum.putExtra("rank", rank);
-                zalogowany.this.startActivity(katliceum);
+                kattechnikum.putExtra("username", username);
+                kattechnikum.putExtra("rank", rank);
+                zalogowany.this.startActivity(kattechnikum);
             }
         });
 
         dodajb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                katliceum.putExtra("username", username);
-                katliceum.putExtra("rank", rank);
+                dodajplik.putExtra("username", username);
+                dodajplik.putExtra("rank", rank);
                 zalogowany.this.startActivity(dodajplik);
             }
         });
@@ -77,7 +79,7 @@ public class zalogowany extends AppCompatActivity {
         uzytkownicyb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                zalogowany.this.startActivity(dodajplik);
+                zalogowany.this.startActivity(listaUzytkownikow);
             }
         });
     }

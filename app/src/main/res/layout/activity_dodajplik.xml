@@ -35,9 +35,8 @@
         android:id="@+id/wybierzt"
         android:layout_width="155dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="183dp"
+        android:layout_centerVertical="true"
         android:layout_marginStart="30dp"
         android:text="Wybierz plik do dodania"
         android:textSize="28sp" />

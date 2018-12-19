@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="111dp"
+    android:layout_height="177dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -11,29 +11,83 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/idt"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center_vertical|center_horizontal"
-            android:paddingTop="5dp"
-            android:text="asfasfafs"
-            android:textSize="16sp" />
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/usernamet"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_vertical|center_horizontal"
+                android:paddingTop="5dp"
+                android:text="Nazwa"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/rangt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="center_vertical|center_horizontal"
+                android:paddingTop="5dp"
+                android:text="ranga"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/elementst"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="center_vertical|center_horizontal"
+                android:paddingTop="5dp"
+                android:text="elementy"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/pointst"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="center_vertical|center_horizontal"
+                android:paddingTop="5dp"
+                android:text="punkty"
+                android:textSize="16sp" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="5"
+            android:layout_weight="2"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/downloadb"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="Pobierz" />
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/uprankb"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Moderator"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/downrankb"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Użytkownik"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/deleteb"
@@ -41,8 +95,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Usuń"
-                android:visibility="invisible" />
+                android:text="Usuń go" />
 
         </LinearLayout>
 

@@ -23,7 +23,7 @@ public class katliceum extends AppCompatActivity {
 
         final Button matb = (Button) findViewById(R.id.matb);
         final Button polskib=(Button) findViewById(R.id.polskib);
-        final Button infb = (Button) findViewById(R.id.fizb);
+        final Button fizb = (Button) findViewById(R.id.fizb);
         final Button angb=(Button) findViewById(R.id.angb);
 
         final Intent atmaterials=new Intent(katliceum.this,materialy.class);
@@ -33,6 +33,30 @@ public class katliceum extends AppCompatActivity {
             public void onClick(View v) {
                 atmaterials.putExtra("typ", "Liceum");
                 atmaterials.putExtra("kategoria", "Matematyka");
+                katliceum.this.startActivity(atmaterials);
+            }
+        });
+        polskib.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                atmaterials.putExtra("typ", "Liceum");
+                atmaterials.putExtra("kategoria", "Polski");
+                katliceum.this.startActivity(atmaterials);
+            }
+        });
+        fizb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                atmaterials.putExtra("typ", "Liceum");
+                atmaterials.putExtra("kategoria", "Fizyka");
+                katliceum.this.startActivity(atmaterials);
+            }
+        });
+        angb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                atmaterials.putExtra("typ", "Liceum");
+                atmaterials.putExtra("kategoria", "Angielski");
                 katliceum.this.startActivity(atmaterials);
             }
         });

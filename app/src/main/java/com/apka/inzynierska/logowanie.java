@@ -3,6 +3,7 @@ package com.apka.inzynierska;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +29,8 @@ public class logowanie extends AppCompatActivity implements TaskCompleted {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
-        Intent intent=getIntent();
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setTitle("Logowanie");
         final String ip = getString(R.string.ip);
 
 
@@ -105,6 +107,8 @@ public class logowanie extends AppCompatActivity implements TaskCompleted {
     }
     @Override
     public void onTaskComplete(final String result) {
+
+        Log.e("rezulcik", result);
 
         final EditText usernamelogin = (EditText) findViewById(R.id.usernamelogin);
         final EditText passwordlogin = (EditText) findViewById(R.id.passwordlogin);

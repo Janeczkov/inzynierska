@@ -21,7 +21,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class UploadMethod extends AsyncTask<String , String ,String> {
+public class UploadMethod extends AsyncTask<TaskParamsHelper , String ,String> {
 
 
     public UploadMethod(Context context){
@@ -29,23 +29,23 @@ public class UploadMethod extends AsyncTask<String , String ,String> {
     }
 
     @Override
-    protected String doInBackground(String... strings) {
+    protected String doInBackground(TaskParamsHelper... params) {
         try {
-            URL url = new URL(strings[0]);
+            URL url = new URL(params[0].ip);
             String lineEnd = "\r\n";
             String twoHyphens = "--";
             String boundary = "*****";
             int bytesRead, bytesAvailable, bufferSize;
             byte[] buffer;
             int maxBufferSize = 1024 * 1024;
-            String content = strings[1];
-            String urisegment = strings[2];
+            byte[] content = params[0].content;
+            String urisegment = params[0].filename;
 
-            Log.e("path", content);
+            //Log.e("path", content);
 
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             //urlConnection.setRequestMethod("POST");
-            urlConnection.setRequestProperty("Content-Type", "application/json;charset=Unicode");
+            urlConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
             //urlConnection.setRequestProperty("Accept","application/json");
 
             urlConnection.setRequestProperty("Connection", "Keep-Alive");
@@ -85,21 +85,17 @@ public class UploadMethod extends AsyncTask<String , String ,String> {
                 bytesRead = fileInputStream.read(buffer, 0, bufferSize);
             }*/
 
-            outputStream.writeBytes(content);
+            outputStream.write(content);
             outputStream.writeBytes(lineEnd);
             outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-            outputStream.writeBytes("Content-Disposition: form-data; name=\"typ\"" + lineEnd + lineEnd + strings[3]);
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"typ\"" + lineEnd + lineEnd + params[0].typ);
             outputStream.writeBytes(lineEnd);
             outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-            outputStream.writeBytes("Content-Disposition: form-data; name=\"kategoria\"" + lineEnd + lineEnd + strings[4]);
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"kategoria\"" + lineEnd + lineEnd + params[0].category);
             outputStream.writeBytes(lineEnd);
             outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-            outputStream.writeBytes("Content-Disposition: form-data; name=\"autor\"" + lineEnd + lineEnd + strings[5]);
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"autor\"" + lineEnd + lineEnd + params[0].username);
             outputStream.writeBytes(lineEnd);
-
-
-
-
 
             outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 

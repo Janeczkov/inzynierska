@@ -1,6 +1,7 @@
 package com.apka.inzynierska;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,6 +9,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
@@ -25,13 +27,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.io.IOUtils;
+
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -73,6 +83,8 @@ public class dodajplik extends AppCompatActivity implements AdapterView.OnItemSe
         typspinner.setAdapter(adapter1);
         typspinner.setOnItemSelectedListener(this);
 
+        final Button cancelb=(Button) findViewById(R.id.cancelb);
+
 
 
         przegladajb.setOnClickListener(new View.OnClickListener() {
@@ -104,19 +116,58 @@ public class dodajplik extends AppCompatActivity implements AdapterView.OnItemSe
                     e.printStackTrace();
                 }*/
 
+                if (uri != null){
+                  try {
+                        TaskParamsHelper params = new TaskParamsHelper(ip + "/file/upload/", readTextFromUri(uri),
+                                getFileName(uri),
+                                typspinner.getSelectedItem().toString(),
+                                katspinner.getSelectedItem().toString(),
+                                username);
 
-                try {
-                    new UploadMethod(dodajplik.this).execute(ip + "/uploadFile/", readTextFromUri(uri),
-                            getFileName(uri),
-                            typspinner.getSelectedItem().toString(),
-                            katspinner.getSelectedItem().toString(),
-                            username);
-                    Toast.makeText(getApplicationContext(), "Poprawnie wysłano plik", Toast.LENGTH_LONG).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
+
+                      new UploadMethod(dodajplik.this).execute(params);
+                        Toast.makeText(getApplicationContext(), "Poprawnie wysłano plik", Toast.LENGTH_LONG).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+/*
+                    File root = new File(Environment.getExternalStorageDirectory(), "Materiały");
+                    if (!root.exists()) {
+                        root.mkdir();
+                    }
+                    File file = new File(root, getFileName(uri));
+                    boolean filedone = false;
+                    if (!file.exists()) {
+                        try {
+                            filedone = file.createNewFile();
+
+                            //OutputStreamWriter oswriter = new OutputStreamWriter(getApplicationContext().openFileOutput(getFileName(uri), Context.MODE_PRIVATE));
+                            oswriter.write(s);
+                            //FileOutputStream stream = new FileOutputStream(file);
+                            //FileWriter writer = new FileWriter(file);
+                            //stream.write(readTextFromUri(uri));
+                            //writer.append(s);
+                            //writer.flush();
+                            //writer.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }*/
+
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Wybierz plik", Toast.LENGTH_LONG).show();
                 }
 
 
+
+            }
+        });
+
+        cancelb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
@@ -337,7 +388,59 @@ public class dodajplik extends AppCompatActivity implements AdapterView.OnItemSe
         }
     }
 
-    private String readTextFromUri(Uri uri) throws IOException {
+    private byte[] readTextFromUri(Uri uri) throws IOException {
+        String sourceFilename = uri.getPath();
+        BufferedInputStream bis;
+
+        Log.e("wtf", "co jest");
+        InputStream inputStream = getContentResolver().openInputStream(uri);
+
+        Log.e("strimek", "lol" + inputStream);
+        byte[] data = IOUtils.toByteArray(inputStream);
+
+        //ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        /*byte[] data = new byte[4096];
+
+        int len = 0;
+        while ((len = inputStream.read(data)) != -1) {
+            buffer.write(data, 0, len);
+        }*/
+        //String s = new String(data, "UTF-8");
+
+
+       /* BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
+        StringBuilder total = new StringBuilder();
+        for (String line; (line = r.readLine()) != null; ) {
+            total.append(line).append('\n');
+        }
+        String s = total.toString();
+*/
+        /*
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] data = new byte[1024];
+
+        int len = 0;
+        while ((len = inputStream.read(data)) != -1) {
+            buffer.write(data, 0, len);
+        }
+
+*/
+        //String s = new String(data, "UTF-8");
+
+        //Log.e("strinczek", data.toString());
+        return data;
+
+        /*
+        bis = new BufferedInputStream(new FileInputStream(getFileName(uri)));
+        bis.read(buf);
+
+
+
+        Log.e("strinczek", s);
+        return s;*/
+    }
+
+/*
         InputStream inputStream = getContentResolver().openInputStream(uri);
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 inputStream));

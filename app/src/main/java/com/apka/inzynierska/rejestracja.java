@@ -47,6 +47,9 @@ public class rejestracja extends AppCompatActivity implements TaskCompleted {
                 if ((userregcontent.isEmpty())||(passregcontent.isEmpty())) {
                     Toast.makeText(getApplicationContext(), "Poprawnie wypełnij pola", Toast.LENGTH_LONG).show();
                 }
+                else if (userregcontent.length()>12) {
+                    Toast.makeText(getApplicationContext(), "Za długa nazwa użytkownika", Toast.LENGTH_LONG).show();
+                }
                 else {
                     new GetMethod(rejestracja.this).execute(ip + "/accounts/");
                 }
