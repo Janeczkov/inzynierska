@@ -1,58 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/zalogowanyt"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="14dp"
-        android:gravity="center"
-        android:text="Zostałeś zalogowany! Wybierz jedną z poniższych opcji"
+        android:layout_marginTop="22dp"
+        android:gravity="top|center_horizontal"
+        android:text="Dostępne typy szkół"
         android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/licb"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="88dp"
+        android:layout_height="77dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/zalogowanyt"
-        android:text="Liceum" />
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/techb"
-        android:layout_width="match_parent"
-        android:layout_height="88dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/licb"
-        android:text="Technikum" />
+        <Button
+            android:id="@+id/licb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/zalogowanyt"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1"
+            android:text="Liceum" />
 
-    <Button
-        android:id="@+id/dodajb"
-        android:layout_width="match_parent"
-        android:layout_height="88dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/techb"
-        android:text="Dodaj własny materiał" />
+        <Button
+            android:id="@+id/techb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/licb"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1"
+            android:text="Technikum" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/uzytkownicyb"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="88dp"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/sprawdzajb"
-        android:text="Przeglądaj użytkowników"
-        android:visibility="invisible" />
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="22dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/sprawdzajb"
-        android:layout_width="match_parent"
-        android:layout_height="88dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/dodajb"
-        android:text="Przęgladaj materiały"
-        android:visibility="invisible" />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/zalogowanyt2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_weight="1"
+            android:gravity="bottom|center_horizontal"
+            android:text="Opcje dodatkowe"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/przegladajb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/techb"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1"
+            android:text="Przeglądaj pobrane materiały" />
+
+        <Button
+            android:id="@+id/dodajb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/techb"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1"
+            android:text="Dodaj własny materiał" />
+
+        <Button
+            android:id="@+id/uzytkownicyb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/sprawdzajb"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1"
+            android:text="Przeglądaj użytkowników"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/sprawdzajb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/dodajb"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1"
+            android:text="Przęgladaj materiały"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+</LinearLayout>

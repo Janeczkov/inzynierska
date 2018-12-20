@@ -2,8 +2,9 @@ package com.apka.inzynierska;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,12 +19,6 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
 
 public class materialy extends AppCompatActivity implements TaskCompleted,DownloadCompleted {
 
@@ -79,7 +74,7 @@ public class materialy extends AppCompatActivity implements TaskCompleted,Downlo
 
                 if (akceptowany.equals("true")) {
                     if (typmaterialu.equals(typ) && kategoriamaterialu.equals(kategoria)) {
-                        final LinearLayout linear = (LinearLayout) getLayoutInflater().inflate(R.layout.materials, null);
+                        final LinearLayout linear = (LinearLayout) getLayoutInflater().inflate(R.layout.materialy, null);
                         ((TextView) linear.findViewById(R.id.idt)).setText("Plik numer " + (i + 1) + " o nazwie " + fileName);
                         //LinearLayout linear=(LinearLayout) tableRow.findViewById(R.id.linear);
                         linearLayout.addView(linear);
@@ -102,6 +97,20 @@ public class materialy extends AppCompatActivity implements TaskCompleted,Downlo
                                     public void onClick(DialogInterface dialog, int id) {
                                         dialog.dismiss();
                                         new DownloadMethod(materialy.this).execute(ip + "/file/download/" + fileid);
+                                        SharedPreferences prefs = PreferenceManager
+                                                .getDefaultSharedPreferences(materialy.this);
+                                        JSONArray plikiArray = new JSONArray();
+                                        try {
+                                            plikiArray.put(1, "nazwa");
+                                            plikiArray.put(2, "kategoria");
+                                            SharedPreferences.Editor editor = prefs.edit();
+                                            int sharedsize = prefs.getAll().size();
+                                            editor.putString("Plik_" + (sharedsize + 1) , plikiArray.toString());
+                                            System.out.println(plikiArray.toString());
+                                            editor.apply();
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
 
                                     }
                                 });

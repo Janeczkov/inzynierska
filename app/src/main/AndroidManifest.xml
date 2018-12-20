@@ -31,6 +31,7 @@
         <activity android:name=".sprawdzanieMaterialow" />
         <activity android:name=".sprawdzanieUzytkownikow" />
         <activity android:name=".typszkoly" />
+        <activity android:name=".materialyLokalne"></activity>
     </application>
 
 </manifest>
