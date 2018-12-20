@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">inzynierska</string>
     <string name="ip">
-        http://[2a02:a315:543d:9a80:796e:cb71:7f48:10a8]:8081
+        http://[2a02:a315:543d:9a80:458a:b96e:b48f:4337]:8081
     </string>
     <string name="action_settings">Settings</string>
     <string-array name="typ_array">
