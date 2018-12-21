@@ -2,57 +2,90 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="111dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="4"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/idt"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="asfasfafs"
-            android:textSize="16sp" />
+            android:layout_height="122dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/idt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center"
+                android:text="a"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/katt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="top|center"
+                android:text="ergreg"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/typt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="top|center"
+                android:text="ergreg"
+                android:textSize="16sp" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:orientation="vertical">
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:paddingTop="5dp">
 
-            <Button
-                android:id="@+id/downloadb"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="Pobierz" />
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/deleteb"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Usuń"
-                android:visibility="invisible" />
+                <Button
+                    android:id="@+id/displayb"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Wyświetl"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"></LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
 
     <View
-        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:layout_gravity="center"
-        android:layout_weight="1"
-        android:background="#000000" />
+        android:layout_weight="3"
+        android:background="#000000"
+        android:visibility="visible" />
 
 </LinearLayout>

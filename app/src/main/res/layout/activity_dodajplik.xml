@@ -99,6 +99,6 @@
         android:layout_alignBottom="@+id/wybranyt2"
         android:layout_alignStart="@+id/przegladajb"
         android:text="Brak"
-        android:textSize="22sp" />
+        android:textSize="16sp" />
 
 </RelativeLayout>

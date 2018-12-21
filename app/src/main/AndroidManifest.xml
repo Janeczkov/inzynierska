@@ -14,6 +14,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS">
+            <intent-filter>
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".logowanie" />
         <activity android:name=".rejestracja" />
         <activity android:name=".katliceum" />
@@ -31,7 +45,12 @@
         <activity android:name=".sprawdzanieMaterialow" />
         <activity android:name=".sprawdzanieUzytkownikow" />
         <activity android:name=".typszkoly" />
-        <activity android:name=".materialyLokalne"></activity>
+        <activity android:name=".materialyLokalne">
+            <intent-filter>
+                <action android:name="com.scytec.datamobile.vd.gui.android.AppPreferenceActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

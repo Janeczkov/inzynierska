@@ -67,87 +67,114 @@ public class materialy extends AppCompatActivity implements TaskCompleted,Downlo
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonobject = jsonArray.getJSONObject(i);
                 final int fileid = jsonobject.getInt("id");
-                String fileName = jsonobject.getString("fileName");
+                final String fileName = jsonobject.getString("fileName");
                 final String typmaterialu = jsonobject.getString("typ");
                 final String kategoriamaterialu = jsonobject.getString("category");
                 final String akceptowany = jsonobject.getString("accepted");
 
                 if (akceptowany.equals("true")) {
                     if (typmaterialu.equals(typ) && kategoriamaterialu.equals(kategoria)) {
-                        final LinearLayout linear = (LinearLayout) getLayoutInflater().inflate(R.layout.materialy, null);
-                        ((TextView) linear.findViewById(R.id.idt)).setText("Plik numer " + (i + 1) + " o nazwie " + fileName);
-                        //LinearLayout linear=(LinearLayout) tableRow.findViewById(R.id.linear);
-                        linearLayout.addView(linear);
 
-                        final Button downloadb = linear.findViewById(R.id.downloadb);
-                        final Button deleteb = linear.findViewById(R.id.deleteb);
 
-                        if ((rank.equals("2")) || rank.equals("3")) {
-                            deleteb.setVisibility(View.VISIBLE);
+                        final SharedPreferences filelist = PreferenceManager
+                                .getDefaultSharedPreferences(materialy.this);
+
+                        //SharedPreferences.Editor editor = filelist.edit();
+                        //editor.clear().apply();
+
+                        final int filelistsize = filelist.getAll().size();
+
+
+                        boolean juzpobrany = false;
+                        for (int j = 1; j <= filelistsize; j++) {
+                            try {
+                                JSONArray checkfile = new JSONArray(filelist.getString("Plik_" + j, "[]"));
+                                int idchecked = checkfile.getInt(0);
+                                if (idchecked == fileid) {
+                                    juzpobrany = true;
+                                    break;
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
+                        if (!juzpobrany) {
+                            final LinearLayout linear = (LinearLayout) getLayoutInflater().inflate(R.layout.materialy, null);
+                            ((TextView) linear.findViewById(R.id.idt)).setText("Plik numer " + (i + 1) + " o nazwie " + fileName);
+                            //LinearLayout linear=(LinearLayout) tableRow.findViewById(R.id.linear);
+                            linearLayout.addView(linear);
 
-                        downloadb.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(materialy.this);
-                                builder.setTitle("Pobieranie pliku");
-                                builder.setMessage("Czy na pewno chcesz pobrac?");
-                                //builder.setIcon(R.drawable.ic_launcher);
-                                builder.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.dismiss();
-                                        new DownloadMethod(materialy.this).execute(ip + "/file/download/" + fileid);
-                                        SharedPreferences prefs = PreferenceManager
-                                                .getDefaultSharedPreferences(materialy.this);
-                                        JSONArray plikiArray = new JSONArray();
-                                        try {
-                                            plikiArray.put(1, "nazwa");
-                                            plikiArray.put(2, "kategoria");
-                                            SharedPreferences.Editor editor = prefs.edit();
-                                            int sharedsize = prefs.getAll().size();
-                                            editor.putString("Plik_" + (sharedsize + 1) , plikiArray.toString());
-                                            System.out.println(plikiArray.toString());
-                                            editor.apply();
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
+                            final Button downloadb = linear.findViewById(R.id.downloadb);
+                            final Button deleteb = linear.findViewById(R.id.deleteb);
+
+                            if ((rank.equals("2")) || rank.equals("3")) {
+                                deleteb.setVisibility(View.VISIBLE);
+                            }
+
+                            downloadb.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(materialy.this);
+                                    builder.setTitle("Pobieranie pliku");
+                                    builder.setMessage("Czy na pewno chcesz pobrac?");
+                                    //builder.setIcon(R.drawable.ic_launcher);
+                                    builder.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.dismiss();
+                                            new DownloadMethod(materialy.this).execute(ip + "/file/download/" + fileid);
+
+                                            JSONArray addfile = new JSONArray();
+                                            try {
+                                                addfile.put(0, fileid);
+                                                addfile.put(1, fileName);
+                                                addfile.put(2, typmaterialu);
+                                                addfile.put(3, kategoriamaterialu);
+                                                SharedPreferences.Editor editor = filelist.edit();
+
+                                                editor.putString("Plik_" + (filelistsize + 1), addfile.toString());
+
+                                                editor.apply();
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+
                                         }
+                                    });
+                                    builder.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+                                }
+                            });
+                            deleteb.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(materialy.this);
+                                    builder.setTitle("Usunięcie materiału");
+                                    builder.setMessage("Czy na pewno usunąć ten materiał?");
+                                    builder.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.dismiss();
+                                            new DeleteMethod(materialy.this).execute(ip + "/file/delete/" + fileid);
+                                            finish();
+                                            startActivity(getIntent());
+                                            Toast.makeText(materialy.this, "Usunięto plik", Toast.LENGTH_LONG).show();
 
-                                    }
-                                });
-                                builder.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                                AlertDialog alert = builder.create();
-                                alert.show();
-                            }
-                        });
-                        deleteb.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(materialy.this);
-                                builder.setTitle("Usunięcie materiału");
-                                builder.setMessage("Czy na pewno usunąć ten materiał?");
-                                builder.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.dismiss();
-                                        new DeleteMethod(materialy.this).execute(ip + "/file/delete/" + fileid);
-                                        finish();
-                                        startActivity(getIntent());
-                                        Toast.makeText(materialy.this, "Usunięto plik", Toast.LENGTH_LONG).show();
-
-                                    }
-                                });
-                                builder.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                                AlertDialog alert = builder.create();
-                                alert.show();
-                            }
-                        });
+                                        }
+                                    });
+                                    builder.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+                                }
+                            });
+                        }
                     }
                 }
 

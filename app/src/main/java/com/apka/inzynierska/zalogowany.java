@@ -26,14 +26,16 @@ public class zalogowany extends AppCompatActivity {
         final Intent katliceum=new Intent(zalogowany.this,katliceum.class);
         final Intent kattechnikum=new Intent(zalogowany.this,kattechnikum.class);
         final Intent dodajplik=new Intent(zalogowany.this,dodajplik.class);
+        final Intent lokalne=new Intent(zalogowany.this,materialyLokalne.class);
         final Intent sprawdzanieMaterialow=new Intent(zalogowany.this,sprawdzanieMaterialow.class);
         final Intent listaUzytkownikow=new Intent(zalogowany.this,sprawdzanieUzytkownikow.class);
 
-        final Button licb = (Button) findViewById(R.id.licb);
-        final Button techb = (Button) findViewById(R.id.techb);
-        final Button dodajb = (Button) findViewById(R.id.dodajb);
-        final Button sprawdzajb = (Button) findViewById(R.id.sprawdzajb);
-        final Button uzytkownicyb = (Button) findViewById(R.id.uzytkownicyb);
+        final Button licb = findViewById(R.id.licb);
+        final Button techb = findViewById(R.id.techb);
+        final Button dodajb = findViewById(R.id.dodajb);
+        final Button przegladajb = findViewById(R.id.przegladajb);
+        final Button sprawdzajb = findViewById(R.id.sprawdzajb);
+        final Button uzytkownicyb = findViewById(R.id.uzytkownicyb);
 
         Log.e("ranga", rank);
         if (rank.equals("2")) {
@@ -43,7 +45,6 @@ public class zalogowany extends AppCompatActivity {
             sprawdzajb.setVisibility(View.VISIBLE);
             uzytkownicyb.setVisibility(View.VISIBLE);
         }
-
 
         licb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +70,13 @@ public class zalogowany extends AppCompatActivity {
                 dodajplik.putExtra("username", username);
                 dodajplik.putExtra("rank", rank);
                 zalogowany.this.startActivity(dodajplik);
+            }
+        });
+
+        przegladajb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                zalogowany.this.startActivity(lokalne);
             }
         });
 

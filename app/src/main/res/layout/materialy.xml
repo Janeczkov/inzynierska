@@ -34,25 +34,14 @@
                 android:gravity="center"
                 android:text="Pobierz" />
 
-            <RelativeLayout
+            <Button
+                android:id="@+id/deleteb"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <Button
-                    android:id="@+id/deleteb"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Usuń"
-                    android:visibility="invisible" />
-
-                <Spinner
-                    android:id="@+id/ocenaspinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </RelativeLayout>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Usuń"
+                android:visibility="invisible" />
 
         </LinearLayout>
 

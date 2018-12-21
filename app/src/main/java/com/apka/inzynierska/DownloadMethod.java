@@ -57,8 +57,9 @@ public class DownloadMethod extends AsyncTask<String , Void ,String> {
             byte[] data = IOUtils.toByteArray(inputStream);
             //Log.e("available", String.valueOf(inputStream.available()));
             //inputStream.read(buffer);
+            String contentfolder = "Materiały";
 
-            File root = new File(Environment.getExternalStorageDirectory(), "Materiały");
+            File root = new File(Environment.getExternalStorageDirectory(), contentfolder);
             //Log.e("path", Environment.getExternalStorageDirectory().toString());
 
             if (!root.exists()) {
@@ -80,7 +81,7 @@ public class DownloadMethod extends AsyncTask<String , Void ,String> {
             */
 
             if (filedone) {
-                result = "Poprawnie pobrano plik";
+                result = "Plik zapisano w folderze " + contentfolder;
             }
             else {
                 result = "Wystąpił błąd";
