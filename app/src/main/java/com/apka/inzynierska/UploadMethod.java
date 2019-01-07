@@ -55,6 +55,7 @@ public class UploadMethod extends AsyncTask<TaskParamsHelper , String ,String> {
 
 
 
+
             DataOutputStream outputStream;
             outputStream = new DataOutputStream(urlConnection.getOutputStream());
             outputStream.writeBytes(twoHyphens + boundary + lineEnd);
@@ -91,7 +92,10 @@ public class UploadMethod extends AsyncTask<TaskParamsHelper , String ,String> {
             outputStream.writeBytes("Content-Disposition: form-data; name=\"typ\"" + lineEnd + lineEnd + params[0].typ);
             outputStream.writeBytes(lineEnd);
             outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-            outputStream.writeBytes("Content-Disposition: form-data; name=\"kategoria\"" + lineEnd + lineEnd + params[0].category);
+            byte[] b = params[0].category.getBytes("UTF-8");
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"kategoria\"" + lineEnd + lineEnd);
+            //outputStream.writeBytes(b);
+            outputStream.write(b);
             outputStream.writeBytes(lineEnd);
             outputStream.writeBytes(twoHyphens + boundary + lineEnd);
             outputStream.writeBytes("Content-Disposition: form-data; name=\"autor\"" + lineEnd + lineEnd + params[0].username);

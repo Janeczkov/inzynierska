@@ -54,6 +54,7 @@ public class GetMethod extends AsyncTask<String , Void ,String> {
             e.printStackTrace();
         }
 
+        Log.e("co jest", finalJson);
         return finalJson;
     }
 

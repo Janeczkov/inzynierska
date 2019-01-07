@@ -72,13 +72,13 @@ public class sprawdzanieUzytkownikow extends AppCompatActivity implements TaskCo
                 final String username = jsonobject.getString("username");
                 final String rank = jsonobject.getString("rank");
                 final String elements = jsonobject.getString("elements");
-                final String points = jsonobject.getString("points");
+                //final String points = jsonobject.getString("points");
 
                 final LinearLayout linear=(LinearLayout) getLayoutInflater().inflate(R.layout.users,null);
                 ((TextView) linear.findViewById(R.id.usernamet)).setText("Użytkownik:\r\n" + username);
                 ((TextView) linear.findViewById(R.id.rangt)).setText("Ranga: " + rank);
                 ((TextView) linear.findViewById(R.id.elementst)).setText("Elementów: " + elements);
-                ((TextView) linear.findViewById(R.id.pointst)).setText("Punktów: " + points);
+                //((TextView) linear.findViewById(R.id.pointst)).setText("Punktów: " + points);
                 //LinearLayout linear=(LinearLayout) tableRow.findViewById(R.id.linear);
 
                 linearLayout.addView(linear);

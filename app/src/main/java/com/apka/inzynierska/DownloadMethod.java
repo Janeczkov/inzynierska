@@ -48,8 +48,12 @@ public class DownloadMethod extends AsyncTask<String , Void ,String> {
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             InputStream inputStream = urlConnection.getInputStream();
             String header = urlConnection.getHeaderField("Content-Disposition");
+            Log.e("1", header);
             String headerSplit[] = header.split("filename=");
+            Log.e("2", headerSplit[1]);
             String filename = headerSplit[1].replace("filename=", "").replace("\"", "").trim();
+
+            Log.e("filename download", filename);
 
 
             //reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
@@ -69,6 +73,9 @@ public class DownloadMethod extends AsyncTask<String , Void ,String> {
             boolean filedone = false;
             if (!file.exists()) {
                 filedone = file.createNewFile();
+            }
+            else {
+                result = "Ten plik już został pobrany";
             }
             FileOutputStream stream = new FileOutputStream(file);
 

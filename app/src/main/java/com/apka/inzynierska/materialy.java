@@ -72,6 +72,8 @@ public class materialy extends AppCompatActivity implements TaskCompleted,Downlo
                 final String kategoriamaterialu = jsonobject.getString("category");
                 final String akceptowany = jsonobject.getString("accepted");
 
+
+
                 if (akceptowany.equals("true")) {
                     if (typmaterialu.equals(typ) && kategoriamaterialu.equals(kategoria)) {
 
@@ -79,8 +81,8 @@ public class materialy extends AppCompatActivity implements TaskCompleted,Downlo
                         final SharedPreferences filelist = PreferenceManager
                                 .getDefaultSharedPreferences(materialy.this);
 
-                        //SharedPreferences.Editor editor = filelist.edit();
-                        //editor.clear().apply();
+                        SharedPreferences.Editor editor = filelist.edit();
+                        editor.clear().apply();
 
                         final int filelistsize = filelist.getAll().size();
 
